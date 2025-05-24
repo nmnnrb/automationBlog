@@ -1,8 +1,16 @@
-import React from 'react'
+'use client'
+import TextEditor from '@/components/TextEditor'
+import React, { useState } from 'react'
 
 const page = () => {
+    const [editedContent, setEditedContent] = useState("")
+    const publish = () => {
+        console.log("print post" , editedContent)
+    }
   return (
-    <div>Create Blogs</div>
+    <div>
+              <TextEditor  editedContent={editedContent} setEditedContent={setEditedContent} publish={publish} />
+    </div>
   )
 }
 
