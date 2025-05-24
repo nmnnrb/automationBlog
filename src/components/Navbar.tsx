@@ -1,5 +1,5 @@
 'use client'
-import { CirclePlus, Menu } from 'lucide-react'
+import { CirclePlus, Eye, Menu } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
@@ -69,18 +69,20 @@ return (
           :
           (
             <>
-              <p
-                onClick={() => router.push("/all-post")}
-                className='bg-blue-500 hover:bg-blue-600 px-2 sm:px-6 py-1 sm:py-2 rounded-md transition-all text-white font-bold text-xs sm:text-base cursor-pointer'
-              >
-                View Blogs
-              </p>
-              <p
+         
+                <p
+onClick={() => router.push("/all-post")}
+      className="flex hover:cursor-pointer gap-1 justify-start items-center bg-blue-600 hover:bg-blue-700 font-black transition duration-300 px-3 py-[1px] rounded-xl"
+    >
+      <Eye className="w-5 h-5" /> Blog
+    </p>
+      
+                            <p
                 onClick={() => router.push("/daily-tracker-post")}
-                className='bg-green-500 hover:bg-green-600 px-2 sm:px-6 py-1 sm:py-2 rounded-md transition-all text-white font-bold text-xs sm:text-base cursor-pointer'
-              >
-                View Daily Tracker
-              </p>
+      className="flex hover:cursor-pointer gap-1 justify-start items-center bg-green-600 hover:bg-green-700 font-black transition duration-300 px-3 py-[1px] rounded-xl"
+    >
+      <Eye className="w-5 h-5" /> Tracker
+    </p>
             </>
           )}
       </div>

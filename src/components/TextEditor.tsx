@@ -2,6 +2,7 @@
 
 import React from "react";
 import RichTextEditor from "@/helper/RichTextEditor";
+import { Eye, Send } from "lucide-react";
 
 const TextEditor = ({editedContent, setEditedContent , publish}) => {
   // const [editedContent, setEditedContent] = React.useState<string>("");
@@ -16,8 +17,8 @@ const TextEditor = ({editedContent, setEditedContent , publish}) => {
  <div className="flex justify-between items-center mb-4">
          <h1 className="text-3xl font-bold mb-4 text-gray-800">Write your content</h1>
       <div className="flex space-x-4">
-          <button onClick={preview} className="text-md hover:cursor-point hover:bg-green-800 transition duration-300 bg-green-700 px-6 py-1 text-white rounded-md shadow-lg font-bold mb-4 ">Preview</button>
-        <button onClick={publish} className="text-md hover:cursor-point hover:bg-blue-800 transition duration-300 bg-blue-700 px-6 py-1 text-white rounded-md shadow-lg font-bold mb-4 ">Publish</button>
+          <button onClick={preview} className="text-md hover:cursor-point hover:bg-green-800 transition duration-300 bg-green-700 px-3 py-1 text-white rounded-md shadow-lg font-bold mb-4 flex text-base gap-1 ">    <Eye className="w-5 hover:-translate-x-2 transition duration-300 " /> Preview</button>
+        <button onClick={publish} className="text-md hover:cursor-point hover:bg-blue-800 transition duration-300 bg-blue-700 px-3 py-1 text-white rounded-md shadow-lg font-bold mb-4 flex gap-1 text-base ">    <Send className="w-4 hover:-translate-x-2 transition duration-300 "/>Publish</button>
       </div>
  </div>
         <RichTextEditor content={editedContent} onChange={setEditedContent} />
