@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+HU&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -19,3 +22,24 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 } */
+
+
+
+
+
+
+.roboto-head {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700; 
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+
+.playwrite-hu-head {
+  font-family: "Playwrite HU", cursive;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
+}
