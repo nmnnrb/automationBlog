@@ -1,8 +1,17 @@
-import React from 'react'
+'use client'
+import TextEditor from '@/components/TextEditor'
+import React, { useState } from 'react'
 
 const page = () => {
+    const [editedContent, setEditedContent] = useState("");
+    const publish = () => {
+
+    }
+
   return (
-    <div>Create Tracker post </div>
+    <div>
+             <TextEditor  editedContent={editedContent} setEditedContent={setEditedContent} publish={publish} />
+    </div>
   )
 }
 
