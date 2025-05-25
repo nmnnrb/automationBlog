@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import RichTextEditor from "@/helper/RichTextEditor";
 import { BookPlus, CircleX, Eye, LoaderCircle, Send } from "lucide-react";
 
-const TextEditor = ({editedContent, typeTitle,loading , setBoolTitle , setAuthor="Naman", author, title, boolDate, boolTitle, setEditedContent , setDate ,setTitle, publish}) => {
+const TextEditor = ({editedContent,errorContent, boolTitleVar, errorDate, typeTitle,loading , setBoolTitle , setAuthor="Naman", author, title, boolDate, boolTitle, setEditedContent , date, setDate ,setTitle, publish}) => {
   // const [editedContent, setEditedContent] = React.useState<string>("");
   const [show, setShow] = React.useState(false);
   const [showAuthor, setShowAuthor] = useState(false);
@@ -58,7 +58,7 @@ useEffect(() => {
 
 
   <div className="w-full relative">
-  {boolTitle ? (  <CircleX onClick={titleShow} className="absolute hover:text-gray-600 transition duration-300 right-2 top-2" />) : (<p onClick={titleShow}  className="absolute bg-green-600  hover:cursor-pointer transition duration-300 hover:bg-green-700 text-white px-2 py-1 rounded-lg right-2">Add title</p>)}
+  {boolTitle ? ( boolTitleVar && <CircleX onClick={titleShow} className="absolute hover:text-gray-600 transition duration-300 right-2 top-2" />) : (<p onClick={titleShow}  className="absolute bg-green-600  hover:cursor-pointer transition duration-300 hover:bg-green-700 text-white px-2 py-1 rounded-lg right-2">Add title</p>)}
     {boolTitle && <input type="text"
         placeholder="Title"
         className="w-full mb-4 p-2 border font-bold border-gray-300 rounded-md focus:outline-none "
@@ -69,7 +69,7 @@ useEffect(() => {
   </div>
 
 
-{  boolDate && (
+{  boolDate  && (
      <div className="flex items-center justify-center gap-2 my-auto">
   <input
     type="date"
@@ -86,11 +86,11 @@ useEffect(() => {
     className="w-1/5 mb-4 px-2 py-1 border text-xs border-gray-300 rounded-md focus:outline-none"
     onChange={(e) => setEndDate(e.target.value)}
   />
-
+  {errorDate &&  <p className="text-red-500 text-sm mb-3" >Date not entered</p>}
 </div>
   )}
-
-
+ 
+   {errorContent &&  <p className="absolute top-1/2 right-1/2 text-3xl">No content</p>}
         <RichTextEditor    content={editedContent}   onChange={setEditedContent} />
   
  <div className="flex relative gap-2 justify-start items-center mt-4 w-full">

@@ -7,11 +7,13 @@ import React, { useState } from 'react'
 
 
 const page = () => {
+    const typeTitle = "Blog"
     const [editedContent, setEditedContent] = useState("");
     const [title, setTitle] = useState("");
     const [date, setDate] = useState("");
-    const [author, setAuthor] = useState("");
+    const [author, setAuthor] = useState("Naman");
     const boolTitle = true;
+    const boolTitleVar = false;
     const boolDate = false;
 
     const [loading, setLoading] = useState(false);
@@ -42,7 +44,7 @@ window.location.reload();
     }
   return (
     <div>
-              <TextEditor loading={loading}  boolDate={boolDate} setAuthor={setAuthor} author={author} date={date} title={title} boolTitle={boolTitle} editedContent={editedContent} setTitle={setTitle} setDate={setDate} setEditedContent={setEditedContent} publish={publish} />
+              <TextEditor loading={loading} boolTitleVar={boolTitleVar} typeTitle={typeTitle} boolDate={boolDate} setAuthor={setAuthor} author={author} date={date} title={title} boolTitle={boolTitle} editedContent={editedContent} setTitle={setTitle} setDate={setDate} setEditedContent={setEditedContent} publish={publish} />
     </div>
   )
 }

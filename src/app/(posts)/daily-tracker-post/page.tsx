@@ -49,7 +49,7 @@ useEffect(() => {
   return (
     <div className="flex flex-col lg:flex-row justify-start items-start mt-12 w-full px-2 lg:px-5 gap-4 lg:gap-8">
       <div className="w-full lg:w-[70%]">
-        {trackerPost.map((post, index) =>
+        {trackerPost.reverse().map((post, index) =>
        {
 const randomColor = getRandomDarkColor();
 
