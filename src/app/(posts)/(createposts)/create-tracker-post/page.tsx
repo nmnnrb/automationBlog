@@ -14,7 +14,7 @@ const page = () => {
     const [loading , setLoading] = useState(false);
     const [errorDate,setErrorDate] = useState(false);
     const [errorContent,setErrorContent] = useState(false);
-
+    const [title, setTitle] = useState("");
 
 
         function wait(ms) {
@@ -45,7 +45,7 @@ useEffect(() => {
   try {
     setLoading(true);
     const response = await axios.post(`${process.env.NEXT_PUBLIC_API_backend_URL}/create-tracker`, {
-      title: typeTitle,
+      title: title,
       content: editedContent,
       author: author, // Fix typo from 'authon'
       date: date
@@ -68,8 +68,26 @@ useEffect(() => {
 
 
   return (
-    <div>
-             <TextEditor errorDate={errorDate} errorContent={errorContent} loading={loading} typeTitle={typeTitle} boolTitleVar={boolTitleVar} setBoolTitle={setBoolTitle} boolTitle={boolTitle} date={date} boolDate={boolDate} editedContent={editedContent} setDate={setDate} setEditedContent={setEditedContent} publish={publish} />
+    <div className="min-h-screen w-full flex justify-center items-start bg-gray-50 py-6 px-2 sm:px-4">
+      <div className="w-full max-w-2xl bg-white rounded-lg shadow-lg p-2 sm:p-6">
+        <TextEditor
+          errorDate={errorDate}
+          errorContent={errorContent}
+          loading={loading}
+          typeTitle={typeTitle}
+          boolTitleVar={boolTitleVar}
+          setTitle={setTitle}
+          title={title}
+          setBoolTitle={setBoolTitle}
+          boolTitle={boolTitle}
+          date={date}
+          boolDate={boolDate}
+          editedContent={editedContent}
+          setDate={setDate}
+          setEditedContent={setEditedContent}
+          publish={publish}
+        />
+      </div>
     </div>
   )
 }

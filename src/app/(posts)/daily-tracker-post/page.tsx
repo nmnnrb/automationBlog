@@ -61,7 +61,7 @@ const randomColor = getRandomDarkColor();
               className={`playwrite-dk-loopet-head-date text-2xl  lg:text-3xl  `}>{post.date}</p>
               <hr className='mt-3 h-[2px] w-[35%] bg-gray-50' />
               {/* title */}
-              {post.title && <p className='text-2xl lg:text-4xl mt-4 pacifico-regular font-bold'>{post.title}</p>}
+              {post.title && (<p className='text-2xl lg:text-4xl mt-4 pacifico-regular font-bold'>{post.title}</p>)}
               <div
                 className="prose my-5 max-w-none"
                 dangerouslySetInnerHTML={{ __html: post.content }}
