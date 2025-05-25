@@ -105,6 +105,22 @@ body {
   font-variant-east-asian: full-width;
 }
 
+.playpen-sans-hebrew-textT {
+  font-family: "Playpen Sans Hebrew", cursive;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings: "wght" 600, "wdth" 100;
+  /* font-feature-settings: "kern" 1, "liga" 1, "clig" 1; */
+  font-kerning: normal;
+  font-size: 2rem;
+  /* font-variant-ligatures: contextual; */
+  font-variant-caps: small-caps;
+  /* font-variant-numeric: tabular-nums; */
+  /* font-variant-alternates: stylistic; */
+  font-variant-east-asian: full-width;
+}
+
 
 @layer utilities {
   @keyframes dropdown {

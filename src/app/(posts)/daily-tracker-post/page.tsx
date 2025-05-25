@@ -1,6 +1,8 @@
-import React from 'react'
-import trackerPost from  "../../../trackerPost"
+'use client'
+import React, { useEffect, useState } from 'react'
+
 import Goal from "@/components/Goal"
+import axios from 'axios'
 
 
 const page = () => {
@@ -26,6 +28,23 @@ const getRandomDarkColor = () => {
   const randomIndex = Math.floor(Math.random() * darkColors.length);
   return darkColors[randomIndex];
 };
+
+
+  const [trackerPost, setTrackerPost] = useState([]);
+const fetchPost = async () => {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_backend_URL}/get-tracker-post`);
+    if(response.data.success) {
+      console.log("response data" , response.data.post);
+      setTrackerPost(response.data.post);
+    } else {
+      console.error("Failed to fetch tracker posts");
+    }
+}
+
+useEffect(() => {
+  fetchPost();
+},[])
+
 
   return (
     <div className="flex flex-col lg:flex-row justify-start items-start mt-12 w-full px-2 lg:px-5 gap-4 lg:gap-8">
