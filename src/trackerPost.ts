@@ -1,6 +1,7 @@
 const trackerPost = [
   {
     id: 1,
+    // dateManual
     date: "26 Apr, 2025",
     title: "Job Search Update & New Beginning",
     author: "Naman",

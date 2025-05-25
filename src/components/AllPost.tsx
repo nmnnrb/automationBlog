@@ -1,8 +1,29 @@
 'use client'
-import React from 'react'
-import dummy from '../dummy'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+// import dummy from '../dummy'
  const AllPost = () => {
-    const [posts, setPosts] = React.useState(dummy);
+
+  const [dummy, setDummy] =  useState([]);
+
+  const fetchPost = async () => {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_backend_URL}/get-all-posts`);
+
+      console.log(response);
+      if(response.data.success) {
+        setDummy(response.data.post);
+      }else
+      {
+        console.error("Failed to fetch posts");
+      }
+  }
+
+  useEffect(() => {
+    fetchPost();
+  }, [])
+
+
+
     const darkColors = [
      "blue",
       "purple",
@@ -19,14 +40,17 @@ const getRandomDarkColor = () => {
   return (
     <div>
             <div className='w-screen h-screen bg-gray-50 flex gap-5 items-center flex-wrap justify-start py-10 px-2'>
-{
+
+{ 
 dummy.map((post) => {
 const randomColor = getRandomDarkColor();
     return  (
-        <div key={post.id} className="border px-6 hover:cursor-pointer w-[300px] h-[230px] py-2 shadow-xl rounded-lg hover:shadow-2xl flex flex-col justify-between mb-1"> 
+        <div key={post.id} className="border px-6 hover:cursor-pointer w-[300px] h-[350px] pb overflow-hidden py-2 shadow-xl rounded-lg hover:shadow-2xl flex flex-col justify-between mb-1"> 
       
        <div className="d">
-             <p  className="text-sm  text-gray-500">Date: {post.date}</p>
+<p className="text-sm text-gray-500">Date: {new Date(post.date).toLocaleDateString()}</p>
+
+
 
           <h2 style={{color : randomColor}} className="text-xl font-bold">{post.title}</h2>
        </div>
