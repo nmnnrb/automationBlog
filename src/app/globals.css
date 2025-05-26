@@ -138,3 +138,43 @@ body {
     animation: dropdown 0.3s ease-out forwards;
   }
 }
+
+
+.editor-content h1 {
+  font-size: 2.875rem; /* text-3xl */
+  font-weight: 700;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.editor-content h2 {
+  font-size: 2rem; /* text-2xl */
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.editor-content h3 {
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+
+/* Add this to your global styles or component CSS */
+ul[data-type='taskList'] {
+  padding-left: 1.25rem;
+  list-style: none;
+}
+
+ul[data-type='taskList'] li {
+  display: flex;
+  align-items: center;
+}
+
+ul[data-type='taskList'] input[type='checkbox'] {
+  margin-right: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+}

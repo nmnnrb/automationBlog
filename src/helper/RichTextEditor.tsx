@@ -3,14 +3,19 @@
 import React, { useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+
 import BulletList from "@tiptap/extension-bullet-list";
 import OrderedList from "@tiptap/extension-ordered-list";
+import Heading from '@tiptap/extension-heading'
 import ListItem from "@tiptap/extension-list-item";
 import Underline from "@tiptap/extension-underline";
 import Highlight from "@tiptap/extension-highlight";
 import TextStyle from "@tiptap/extension-text-style";
 import Color from "@tiptap/extension-color";
-import { Bold, Italic, List, ListOrdered, UnderlineIcon } from "lucide-react";
+import TaskItem from '@tiptap/extension-task-item'
+import TaskList from '@tiptap/extension-task-list'
+import HorizontalRule from '@tiptap/extension-horizontal-rule'
+import { Bold, Italic, List, ListOrdered, SquareCheck, SquareMinus, UnderlineIcon } from "lucide-react";
 import clsx from "clsx";
 
 import "../fonts/global.css"; // Import global styles with Tailwind directives
@@ -30,14 +35,26 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ content, onChange }) =>
         bulletList: false,
         orderedList: false,
         listItem: false,
+         heading: false,
+         taskList: false,
+          taskItem: false,
+          color: false,
       }),
+    HorizontalRule,
       ListItem,
       BulletList,
       OrderedList,
       Underline,
       Highlight,
       TextStyle,
+      TaskList,
+      TaskItem.configure({
+        nested: true,
+      }),
       Color,
+            Heading.configure({
+        levels: [1, 2, 3],
+      })
     ],
     content,
     onUpdate: ({ editor }) => {
@@ -59,7 +76,50 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ content, onChange }) =>
       )}
     >
       {/* Toolbar */}
-      <div className="mb-2 flex flex-wrap  gap-2 border-b pb-2">
+      <div className="mb-2 flex flex-wrap gap-2 border-b pb-2">
+        {/* Heading Buttons */}
+        <div className="flex gap-1">
+          <button
+            type="button"
+            onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+            className={clsx(
+              "px-2 py-1 rounded hover:bg-blue-100 transition font-bold",
+              editor.isActive('heading', { level: 1 }) ? "bg-blue-50 text-blue-600" : "text-gray-700"
+            )}
+            title="Heading 1"
+          >
+            H1
+          </button>
+          <button
+            type="button"
+            onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+            className={clsx(
+              "px-2 py-1 rounded hover:bg-blue-100 transition font-bold",
+              editor.isActive('heading', { level: 2 }) ? "bg-blue-50 text-blue-600" : "text-gray-700"
+            )}
+            title="Heading 2"
+          >
+            H2
+          </button>
+          <button
+            type="button"
+            onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+            className={clsx(
+              "px-2 py-1 rounded hover:bg-blue-100 transition font-bold",
+              editor.isActive('heading', { level: 3 }) ? "bg-blue-50 text-blue-600" : "text-gray-700"
+            )}
+            title="Heading 3"
+          >
+            H3
+          </button>
+        </div>
+        <input
+            type="color"
+            className="w-[20px] h-[20px] rounded-full cursor-pointer"
+            onInput={event => editor.chain().focus().setColor(event.target.value).run()}
+            value={editor.getAttributes('textStyle').color}
+            data-testid="setColor"
+          />
         <button
           type="button"
           onClick={() => editor.chain().focus().toggleBold().run()}
@@ -71,7 +131,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ content, onChange }) =>
         >
           <Bold size={16} />
         </button>
-
+  
         <button
           type="button"
           onClick={() => editor.chain().focus().toggleItalic().run()}
@@ -119,7 +179,11 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ content, onChange }) =>
         >
           <UnderlineIcon size={16} />
         </button>
-
+<button  className={clsx(
+            "p-1 rounded hover:bg-blue-100 transition text-yellow-400"
+          )} onClick={() => editor.chain().focus().setHorizontalRule().run()}>
+            <SquareMinus size={16} className="text-gray-400" />
+          </button>
         <button
           type="button"
           onClick={() => editor.chain().focus().toggleHighlight().run()}
@@ -133,6 +197,21 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ content, onChange }) =>
         >
           HL
         </button>
+     <button
+  onClick={() => editor.chain().focus().toggleTaskList().run()}
+  className={clsx(
+    "p-1 rounded hover:bg-blue-100 transition",
+    editor.isActive('taskList') || editor.isActive('taskItem')
+      ? "text-blue-600 bg-blue-50"
+      : "text-gray-700"
+  )}
+  title="Task List"
+>
+  <SquareCheck size={16} />
+</button>
+
+      
+      
       </div>
 
       {/* Editor content */}
