@@ -2,7 +2,9 @@
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
-// import dummy from '../dummy'
+
+import { useDisplayMode } from "@/hooks/DisplayModeProvider";
+
  const AllPost = () => {
 
   const [dummy, setDummy] =  useState([]);
@@ -33,6 +35,7 @@ import React, { useEffect, useState } from 'react'
     "brown",
 ];
 
+  const { mode, toggleMode, colorSchema } = useDisplayMode();
 
   function getRandomLightColor() {
     let r = Math.floor(Math.random() * 56) + 200; // 200-255 (Light shade)
@@ -51,7 +54,7 @@ const router = useRouter();
 
   return (
     <div>
-      <div className="w-full min-h-screen bg-gray-50 flex flex-wrap justify-center items-start gap-4 py-8 px-2 sm:px-4 md:px-8">
+      <div className={`w-full min-h-screen ${mode === 'light' ? ' bg-gray-100' : 'bg-zinc-900'} flex flex-wrap justify-center items-start gap-4 py-8 px-2 sm:px-4 md:px-8`}>
         {
           dummy.map((post, index) => {
             const randomColor = getRandomDarkColor();
@@ -76,14 +79,14 @@ const router = useRouter();
                     dangerouslySetInnerHTML={{ __html: post.content.split(' ').slice(0, 20).join(' ') }}
                   />
                 </div>
-                <div className="absolute h-[48px] sm:h-[50px] w-full shadow-2xl overflow-hidden px-4 sm:px-6 pt-2 bg-gray-100 bottom-0 left-0 flex flex-col justify-center">
+                <div className={`absolute h-[48px] sm:h-[50px] w-full shadow-2xl overflow-hidden px-4 sm:px-6 pt-2 ${mode === 'light' ? "bg-gray-100" : "bg-gray-400 text-white"} bottom-0 left-0 flex flex-col justify-center`}>
                   <p
                     onClick={() => router.push(`/post/${post._id}`)}
-                    className="text-blue-800 font-semibold hover:text-blue-900 text-xs sm:text-sm cursor-pointer"
+                    className={` font-semibold transition duration-300 ${mode === 'light' ? 'text-blue-600 hover:text-blue-700' : 'text-violet-700 font-normal hover:text-blue-800'} text-xs sm:text-sm cursor-pointer`}
                   >
                     See More
                   </p>
-                  <p className="text-xs sm:text-sm text-gray-500">Author: {post.author}</p>
+                  <p className="text-xs sm:text-sm ">Author: {post.author}</p>
                 </div>
               </div>
             )

@@ -1,9 +1,13 @@
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../fonts/global.css";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import VoiceCommand from "@/components/VoiceCommand";
+import { DisplayModeProvider } from "@/hooks/DisplayModeProvider";
+
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,9 +34,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+              <DisplayModeProvider>
         <Navbar />
         <VoiceCommand />
+
         {children}
+</DisplayModeProvider>
       </body>
     </html>
   );
