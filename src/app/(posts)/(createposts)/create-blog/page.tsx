@@ -1,6 +1,7 @@
 "use client";
 import TextEditor from "@/components/TextEditor";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const page = () => {
@@ -12,7 +13,7 @@ const page = () => {
   const boolTitle = true;
   const boolTitleVar = false;
   const boolDate = false;
-
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   // first commit
   function wait(ms) {
@@ -32,11 +33,11 @@ const page = () => {
         }
       );
       if (response.data.success) {
-        window.location.reload();
+        router.push("/all-post");
       } else {
         alert("Failed to publish post. Please try again.");
       }
-      await wait(2000); // Simulate a delay of 2 seconds
+      await wait(2000); 
       setLoading(false);
     } catch (error) {
       console.error("Error publishing post:", error);

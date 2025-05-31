@@ -16,6 +16,7 @@ const TextEditor = ({
   setAuthor = "Naman",
   author,
   title,
+  updateButton,
   boolDate,
   boolTitle,
   setEditedContent,
@@ -23,6 +24,7 @@ const TextEditor = ({
   setDate,
   setTitle,
   publish,
+  initialContent
 }) => {
   const [show, setShow] = useState(false);
   const [showAuthor, setShowAuthor] = useState(false);
@@ -33,7 +35,7 @@ const TextEditor = ({
 
   const titleShow = () => {
     setBoolTitle((e) => !e);
-    setTitle("");
+
   };
 
   const formatDate = (dateString) => {
@@ -44,6 +46,22 @@ const TextEditor = ({
 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+
+   useEffect(() => {
+    if (date) {
+      const [start, end] = date.split(" - ");
+      const parseToInputDate = (str) => {
+        const [day, monthName, year] = str.split(" ");
+        const month = new Date(`${monthName} 1, 2000`).getMonth() + 1; // Get month index
+        return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      };
+      setStartDate(parseToInputDate(start));
+      setEndDate(parseToInputDate(end));
+    }
+  }, [date]);
+
+
+
 
   useEffect(() => {
     if (startDate && endDate) {
@@ -77,7 +95,7 @@ const TextEditor = ({
                 className="text-md hover:bg-blue-800 transition duration-300 bg-blue-700 px-3 py-1 text-white rounded-md shadow-lg font-bold flex items-center justify-center gap-1"
               >
                 <Send className="w-4 hover:-translate-x-2 transition duration-300" />{" "}
-                Publish
+                {updateButton ? "Update" : "Publish"}
               </button>
             ) : (
               <button className="text-md transition duration-300 bg-zinc-500 px-3 py-1 text-white rounded-md shadow-lg font-bold flex items-center justify-center gap-1 cursor-not-allowed">
@@ -121,12 +139,14 @@ const TextEditor = ({
             <input
               type="date"
               style={{width: "30%"}}
+              value={startDate}
               className={`w-1/2 sm:w-1/2 mx-2 px-2 py-1 border text-xs rounded-md focus:outline-none transition-colors duration-300 ${mode === 'light' ? "border-gray-300 bg-white text-zinc-900" : "border-zinc-700 bg-zinc-900 text-white"}`}
               onChange={(e) => setStartDate(e.target.value)}
             />
             <p className="font-bold text-lg">-</p>
             <input
               type="date"
+              value={endDate} 
               style={{width: "30%"}}
               className={`w-1/2 sm:w-1/2 px-2 mx-2 py-1 border text-xs rounded-md focus:outline-none transition-colors duration-300 ${mode === 'light' ? "border-gray-300 bg-white text-zinc-900" : "border-zinc-700 bg-zinc-900 text-white"}`}
               onChange={(e) => setEndDate(e.target.value)}
@@ -145,7 +165,7 @@ const TextEditor = ({
         )}
 
         {/* RichText Editor */}
-        <RichTextEditor content={editedContent} onChange={setEditedContent} />
+        <RichTextEditor content={editedContent} initialContent={initialContent} onChange={setEditedContent} />
         {/* Author Section */}
         <div className="flex flex-col gap-1 justify-between items-center mt-4 w-full ">
           {showAuthor && (

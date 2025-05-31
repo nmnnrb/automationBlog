@@ -1,5 +1,5 @@
 'use client'
-import { CirclePlus, Eye, Menu, Moon, Shapes, Sun, X } from 'lucide-react'
+import { CirclePlus, Eye, Menu, Moon, Pencil, Shapes, Sun, X } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { useDisplayMode } from "@/hooks/DisplayModeProvider";
@@ -19,17 +19,35 @@ const Navbar = () => {
   ]
 
 
-  const { mode, toggleMode, colorSchema } = useDisplayMode();
+  const { mode, toggleMode, colorSchema , toggleEditAdmin } = useDisplayMode();
+const allowedRoutes = [
+  "/daily-tracker-post",
+  "/post/", // prefix for dynamic route like /post/:id
+];
+
+  const showPencil = allowedRoutes.some(route => 
+    route.endsWith('/') ? pathname.startsWith(route) : pathname === route
+  );
 
   return (
-    <nav className={`w-full sticky top-0 z-50  shadow-md ${mode === 'light' ? 'bg-gradient-to-r from-violet-600 to-violet-800' : "bg-gradient-to-r from-gray-500 -600 to-gray-200"}`}>
+    <nav className={`w-full sticky top-0 z-50  shadow-md ${mode === 'light' ? 'bg-gradient-to-r from-violet-600 to-violet-800' : "bg-gradient-to-r from-gray-800 -600 to-gray-700"}`}>
       <div className="flex items-center justify-between px-2 sm:px-4 h-14 sm:h-16">
         {/* Logo */}
         <div className="flex-shrink-0 text-white text-lg sm:text-2xl font-bold whitespace-nowrap">
        <div className="flex">
            <span className="playpen-sans-hebrew-title">Blog Automation</span>
           <button onClick={() => router.push("/skill-tracker")} className='text-sm ml-4  gap-1 bg-violet-900 px-2 py-1 rounded-lg hover:bg-violet-800 transition duration-300 flex  hover:cursor-point'>  <Shapes className='w-4' />Skills Tracker</button>
-          <button className='ml-4' onClick={toggleMode}>{ mode === 'light' ? (<Moon className='text-white' />) : ( <Sun className='text-yellow-500' />)}  </button>
+          <button className='ml-4' onClick={toggleMode}>{ mode === 'light' ? (<Moon className='text-white transition duration-300 
+             hover:drop-shadow-[0_0_8px_rgba(7,0,0,10.8)]' />) : ( <Sun 
+  className="text-yellow-500 transition duration-300 
+             hover:drop-shadow-[0_0_8px_rgba(252,211,77,0.8)]" 
+/>)}  </button>
+           {showPencil && (
+        <button className="ml-4" onClick={toggleEditAdmin}>
+          <Pencil className="w-4" />
+        </button>
+      )}
+
 </div>        </div>
         {/* Desktop Links */}
         <div className="hidden md:flex gap-2 sm:gap-5 items-center">
@@ -75,6 +93,13 @@ const Navbar = () => {
             </button>
              
           </div>
+           {showPencil && (
+        <button  className={`flex items-center gap-2 px-3 py-2 rounded-lg mb-2 font-bold text-white hover:bg-violet-800 transition w-full text-left `}
+              >
+               <Pencil className="w-5 h-5" /> Edit
+              </button>
+      )}
+
             {linksData.map((links, idx) => (
               <button
                 key={idx}
@@ -89,6 +114,7 @@ const Navbar = () => {
                 {links.icon} {links.label}
               </button>
             ))}
+            
           </div>
           {/* Slide-in animation */}
           <style jsx global>{`

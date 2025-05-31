@@ -17,7 +17,28 @@ const DisplayMode = createContext<DisplayModeContextType | undefined>(undefined)
 
 // 3. Provider component
 export const DisplayModeProvider = ({ children }: { children: ReactNode }) => {
-  const [mode, setMode] = useState<"light" | "dark">("light");
+  const [mode, setMode] = useState<"light" | "dark">(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("displayMode");
+      if (stored === "light" || stored === "dark") return stored;
+    }
+    return "light";
+  });
+  
+
+  const [editAdmin, setEditAdmin] = useState(true);
+  const toggleEditAdmin = () => {
+
+    setEditAdmin((prev) => !prev);
+  }
+
+
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("displayMode", mode);
+    }
+  }, [mode]);
 
   const toggleMode = () => {
     setMode((prev) => (prev === "light" ? "dark" : "light"));
@@ -29,12 +50,11 @@ export const DisplayModeProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <DisplayMode.Provider value={{ mode, toggleMode, colorSchema }}>
+    <DisplayMode.Provider value={{ mode, toggleMode, colorSchema, editAdmin , toggleEditAdmin }}>
       {children}
     </DisplayMode.Provider>
   );
 };
-
 
 export const useDisplayMode = () => {
   const context = useContext(DisplayMode);
